@@ -20,10 +20,10 @@ export const admins = mysqlTable("admins", {
 });
 
 // =====================================================
-// TABEL: berita
+// TABEL: informasi
 // =====================================================
-export const berita = mysqlTable(
-  "berita",
+export const informasi = mysqlTable(
+  "informasi",
   {
     id: int("id").autoincrement().primaryKey(),
     judul: varchar("judul", { length: 200 }).notNull(),
@@ -80,7 +80,7 @@ export const kontak = mysqlTable("kontak", {
 });
 
 export type Admin = typeof admins.$inferSelect;
-export type Berita = typeof berita.$inferSelect;
+export type Informasi = typeof informasi.$inferSelect;
 export type Ekstrakurikuler = typeof ekstrakurikuler.$inferSelect;
 export type Sejarah = typeof sejarah.$inferSelect;
 export type Kontak = typeof kontak.$inferSelect;
