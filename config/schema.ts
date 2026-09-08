@@ -7,6 +7,13 @@ import {
   index,
 } from "drizzle-orm/mysql-core";
 
+import { z } from "zod";
+
+export const informasiSchema = z.object({
+  judul: z.string().min(1),
+  isi: z.string().min(1),
+});
+
 // =====================================================
 // TABEL: admins
 // =====================================================
@@ -52,6 +59,33 @@ export const ekstrakurikuler = mysqlTable("ekstrakurikuler", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
+export const guru = mysqlTable("guru", {
+  id: int("id").autoincrement().primaryKey(),
+  nama: varchar("nama", { length: 150 }).notNull(),
+  nip: varchar("nip", { length: 50 }),
+  mataPelajaran: varchar("mataPelajaran", { length: 150 }),
+  jabatan: varchar("jabatan", { length: 150 }),
+  fotoUrl: varchar("fotoUrl", { length: 500 }),
+  fotoPublicId: varchar("fotoPublicId", { length: 255 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+// =====================================================
+// TABEL: prestasi
+// =====================================================
+
+export const prestasi = mysqlTable("prestasi", {
+  id: int("id").autoincrement().primaryKey(),
+  judul: varchar("judul", { length: 200 }).notNull(),
+  deskripsi: text("deskripsi").notNull(),
+  tahun: varchar("tahun", { length: 20 }).notNull(),
+  gambarUrl: varchar("gambarUrl", { length: 500 }),
+  gambarPublicId: varchar("gambarPublicId", { length: 255 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
 // =====================================================
 // TABEL: sejarah
 // =====================================================
@@ -82,6 +116,8 @@ export const kontak = mysqlTable("kontak", {
 export type Admin = typeof admins.$inferSelect;
 export type Informasi = typeof informasi.$inferSelect;
 export type Ekstrakurikuler = typeof ekstrakurikuler.$inferSelect;
+export type Guru = typeof guru.$inferSelect;
+export type Prestasi = typeof prestasi.$inferSelect;
 export type Sejarah = typeof sejarah.$inferSelect;
 export type Kontak = typeof kontak.$inferSelect;
 
